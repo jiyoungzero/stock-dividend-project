@@ -4,6 +4,7 @@ import org.example.stock.model.Company;
 import org.example.stock.model.Dividend;
 import org.example.stock.model.ScrapedResult;
 import org.example.stock.model.constants.Month;
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,6 +19,8 @@ import java.util.List;
 public class YahooFinanceScrapper {
 
     private static final String STATISTICS_URL = "https://finance.yahoo.com/quote/%s/history/?frequency=1mo&period1=%d&period2=%d";
+    private static final String SUMMARY_URL = "https://finance.yahoo.com/quote/%s/";
+
     private static final long START_TIME = 86400;
 
 
@@ -77,6 +80,42 @@ public class YahooFinanceScrapper {
             e.printStackTrace();
         }
         return scrapedResult;
+    }
+
+    // ticker를 통해 회사명(회사 메타 정보) 긇어오기
+    public Company scrapCompanyByTicker(String ticker){
+        String url = String.format(SUMMARY_URL, ticker);
+
+        try{
+            Document document = Jsoup.connect("https://finance.yahoo.com/quote/MMM/")
+                    .userAgent("Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36")
+                    .header("scheme", "https")
+                    .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
+                    .header("accept-encoding", "gzip, deflate, br")
+                    .header("accept-language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6")
+                    .header("cache-control", "no-cache")
+                    .header("pragma", "no-cache")
+                    .header("upgrade-insecure-requests", "1")
+                    .get();
+
+            String titleEle = document.select("h1.svelte-3a2v0c").text();
+            StringBuffer sbTitle = new StringBuffer();
+            for(Character c : titleEle.toCharArray()){
+                if(c.equals('(')) break;
+
+                sbTitle.append(c);
+            }
+            String title = sbTitle.toString().trim();
+
+            return Company.builder()
+                    .ticker(ticker)
+                    .name(title)
+                    .build();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
