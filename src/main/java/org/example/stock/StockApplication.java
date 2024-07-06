@@ -1,6 +1,7 @@
 package org.example.stock;
 
 import org.example.stock.model.Company;
+import org.example.stock.scrapper.Scrapper;
 import org.example.stock.scrapper.YahooFinanceScrapper;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -18,7 +19,7 @@ public class StockApplication {
 	public static void main(String[] args) {
 		//SpringApplication.run(StockApplication.class, args);
 
-//		YahooFinanceScrapper scrapper = new YahooFinanceScrapper();
+		Scrapper scrapper = new YahooFinanceScrapper();
 //		var result = scrapper.scrapCompanyByTicker("MMM");
 //		System.out.println(result);
 
