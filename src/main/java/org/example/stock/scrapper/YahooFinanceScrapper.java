@@ -90,7 +90,7 @@ public class YahooFinanceScrapper implements Scrapper{
         String url = String.format(SUMMARY_URL, ticker);
 
         try{
-            Document document = Jsoup.connect("https://finance.yahoo.com/quote/MMM/")
+            Document document = Jsoup.connect(url)
                     .userAgent("Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36")
                     .header("scheme", "https")
                     .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")

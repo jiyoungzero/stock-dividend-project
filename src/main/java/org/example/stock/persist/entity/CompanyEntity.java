@@ -19,9 +19,9 @@ public class CompanyEntity {
     private Long id;
 
     @Column(unique = true)
-    private String name;
-
     private String ticker;
+
+    private String name;
 
     public CompanyEntity(Company company){
         this.ticker = company.getTicker();

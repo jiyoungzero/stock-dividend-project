@@ -13,6 +13,7 @@ import org.example.stock.scrapper.Scrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class CompanyService {
     private final DividendRepository dividendRepository;
 
     public Company save(String ticker){
-        boolean exists = companyRepository.existsByTicker(ticker);
+        boolean exists = this.companyRepository.existsByTicker(ticker);
         if(exists){
             throw new RuntimeException("already exists ticker ->" + ticker);
         }
@@ -46,12 +47,11 @@ public class CompanyService {
         // 스크래핑 결과
         CompanyEntity companyEntity  = this.companyRepository.save(new CompanyEntity(company));
         List<DividendEntity> dividendEntityList = scrapedResult.getDividends().stream()
-
                                                                             .map(e -> new DividendEntity(companyEntity.getId(), e))
                                                                             .collect(Collectors.toList());
 
-        this.dividendRepository.saveAll(dividendEntityList);
 
+        this.dividendRepository.saveAll(dividendEntityList);
         return company;
     }
 }
