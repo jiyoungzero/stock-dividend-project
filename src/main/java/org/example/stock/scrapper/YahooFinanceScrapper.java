@@ -10,12 +10,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class YahooFinanceScrapper implements Scrapper{
 
     private static final String STATISTICS_URL = "https://finance.yahoo.com/quote/%s/history/?frequency=1mo&period1=%d&period2=%d";
@@ -74,7 +76,7 @@ public class YahooFinanceScrapper implements Scrapper{
                 }
 
             }
-            scrapedResult.setDividendList(dividendList);
+            scrapedResult.setDividends(dividendList);
 
         } catch (IOException e) {
             e.printStackTrace();

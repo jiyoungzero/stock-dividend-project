@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.stock.model.Company;
 
 import javax.persistence.*;
 
@@ -21,4 +22,9 @@ public class CompanyEntity {
     private String name;
 
     private String ticker;
+
+    public CompanyEntity(Company company){
+        this.ticker = company.getTicker();
+        this.name = company.getName();
+    }
 }

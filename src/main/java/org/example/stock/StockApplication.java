@@ -17,16 +17,7 @@ import java.io.IOException;
 public class StockApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(StockApplication.class, args);
-
-		Scrapper scrapper = new YahooFinanceScrapper();
-//		var result = scrapper.scrapCompanyByTicker("MMM");
-//		System.out.println(result);
-
-//		String url = String.format(SUMMARY_URL, ticker);
-
-
-
+		SpringApplication.run(StockApplication.class, args);
 	}
 
 }
