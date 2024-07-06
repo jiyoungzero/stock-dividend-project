@@ -10,6 +10,8 @@ import org.example.stock.persist.DividendRepository;
 import org.example.stock.persist.entity.CompanyEntity;
 import org.example.stock.persist.entity.DividendEntity;
 import org.example.stock.scrapper.Scrapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -32,6 +34,10 @@ public class CompanyService {
             throw new RuntimeException("already exists ticker ->" + ticker);
         }
         return this.storeCompanyAndDividend(ticker);
+    }
+
+    public Page<CompanyEntity> getAllCompany(Pageable pageable){
+        return this.companyRepository.findAll(pageable);
     }
 
     private Company storeCompanyAndDividend(String ticker){
