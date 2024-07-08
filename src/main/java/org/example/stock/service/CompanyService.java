@@ -2,7 +2,6 @@ package org.example.stock.service;
 
 
 import lombok.AllArgsConstructor;
-import net.bytebuddy.asm.Advice;
 import org.example.stock.model.Company;
 import org.example.stock.model.ScrapedResult;
 import org.example.stock.persist.CompanyRepository;
@@ -14,8 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.apache.commons.collections4.Trie;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CompanyService {
 
+    private final Trie trie;
     private final Scrapper yahooFinanceScrapper;
 
     private final CompanyRepository companyRepository;
