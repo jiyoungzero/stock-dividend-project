@@ -22,7 +22,13 @@ public class CompanyController {
 
     @GetMapping("autocomplete")
     public ResponseEntity<?> autocompleteCompany(@RequestParam String keyword) {
-        var result = this.companyService.autocomplete(keyword);
+
+        /* Trie 자료구조를 이용한 검색완성기능 */
+//        var result = this.companyService.autocomplete(keyword);
+//        return ResponseEntity.ok(result);
+
+        /*LIKE를 이용한 검색완성기능 -> 중간의 일치 키워드로도 찾을 수 있다는 장점*/
+        var result = this.companyService.getCompanyNamesByKeyword(keyword);
         return ResponseEntity.ok(result);
     }
 

@@ -10,6 +10,7 @@ import org.example.stock.persist.entity.CompanyEntity;
 import org.example.stock.persist.entity.DividendEntity;
 import org.example.stock.scrapper.Scrapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -59,6 +60,16 @@ public class CompanyService {
 
         this.dividendRepository.saveAll(dividendEntityList);
         return company;
+    }
+
+    public List<String> getCompanyNamesByKeyword(String keyword){
+        Pageable limit = PageRequest.of(0, 10);
+
+        Page<CompanyEntity> companyEntities = this.companyRepository.findByNameStartingWithIgnoreCase(keyword, limit);
+
+        return companyEntities.stream()
+                .map(e -> e.getName())
+                .collect(Collectors.toList());
     }
 
     public void addAutocompleteKeyword(String keyword){

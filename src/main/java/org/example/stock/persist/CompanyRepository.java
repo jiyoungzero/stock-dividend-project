@@ -2,6 +2,8 @@ package org.example.stock.persist;
 
 
 import org.example.stock.persist.entity.CompanyEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,6 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long> {
 
     Optional<CompanyEntity> findByName(String name);
 
-//    Optional<CompanyEntity> findByTicker(String ticker);
+    Page<CompanyEntity> findByNameStartingWithIgnoreCase(String s, Pageable pageable);
+
 }
