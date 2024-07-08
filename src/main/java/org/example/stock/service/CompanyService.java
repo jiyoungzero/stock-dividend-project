@@ -60,4 +60,18 @@ public class CompanyService {
         this.dividendRepository.saveAll(dividendEntityList);
         return company;
     }
+
+    public void addAutocompleteKeyword(String keyword){
+        this.trie.put(keyword, null);
+    }
+
+    public List<String> autocomplete(String keyword){
+        return (List<String>) this.trie.prefixMap(keyword).keySet()
+                .stream().collect(Collectors.toList());
+    }
+
+    public void deleteAutocompleteKeyword(String keyword){
+        this.trie.remove(keyword);
+    }
+
 }
