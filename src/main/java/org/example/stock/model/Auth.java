@@ -11,9 +11,6 @@ public class Auth {
     public static class SignIn{
         private String username;
         private String password;
-
-
-
     }
 
     @Data

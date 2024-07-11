@@ -25,7 +25,7 @@ public class MemberEntity implements UserDetails {
 
     private String password;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
     @Override
