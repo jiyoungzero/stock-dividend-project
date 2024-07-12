@@ -33,12 +33,22 @@ Spring Boot, Java, JPA, H2, Redis, Jsoup, Docker
 **5) DELETE - company/{ticker}**
 - ticker 에 해당하는 회사 정보 삭제
 - 삭제시 회사의 배당금 정보와 캐시도 모두 삭제되어야 함
-
-**6) POST - auth/signup**
-- 회원가입 API
+  
+ **6) POST - auth/signup**
+- 회원가입 API 
 - 중복 ID 는 허용하지 않음
 - 패스워드는 암호화된 형태로 저장되어야함
 
 **7) POST - auth/signin**
 - 로그인 API
 - 회원가입이 되어있고, 아이디/패스워드 정보가 옳은 경우 JWT 발급
+  
+---
+#### 회원 권한 : 'READ', 'WRITE' 
+
+```@PreAuthorize("hasRole('권한명')")``` 사용 
+
+##### 'READ' : 전체 회사 조회, 배당금 조회
+##### 'WRITE' : 회사 추가, 회사 삭제
+
+
