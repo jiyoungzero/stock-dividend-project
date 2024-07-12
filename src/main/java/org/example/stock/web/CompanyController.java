@@ -2,8 +2,10 @@ package org.example.stock.web;
 
 import lombok.AllArgsConstructor;
 import org.example.stock.model.Company;
+import org.example.stock.model.constants.CacheKey;
 import org.example.stock.persist.entity.CompanyEntity;
 import org.example.stock.service.CompanyService;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final CacheManager cacheManager;
 
     @GetMapping("autocomplete")
     public ResponseEntity<?> autocompleteCompany(@RequestParam String keyword) {
@@ -59,8 +62,18 @@ public class CompanyController {
     }
 
     // 배당금 정보 삭제하기
-    @DeleteMapping
-    public ResponseEntity<?> deleteCompany(){
-        return null;
+    @DeleteMapping("/{ticker}")
+    @PreAuthorize("hasRole('WRITE')")
+    public ResponseEntity<?> deleteCompany(@PathVariable String ticker){
+        String companyName = this.companyService.deleteCompany(ticker);
+
+        // cache 데이터도 지워주기
+        this.clearFinanceCache(companyName);
+
+        return ResponseEntity.ok(companyName);
+    }
+
+    public void clearFinanceCache(String companyName){
+        this.cacheManager.getCache(CacheKey.KEY_FINANCE).evict(companyName);
     }
 }
