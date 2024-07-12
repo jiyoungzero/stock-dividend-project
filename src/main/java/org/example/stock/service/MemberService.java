@@ -3,6 +3,7 @@ package org.example.stock.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.stock.error.impl.AlreadyExistUserException;
 import org.example.stock.model.Auth;
 import org.example.stock.persist.MemberRepository;
 import org.example.stock.persist.entity.MemberEntity;
@@ -31,7 +32,7 @@ public class MemberService implements UserDetailsService {
         boolean exist = this.memberRepository.existsByUsername(member.getUsername());
 
         if(exist){
-            throw new RuntimeException("이미 사용 중인 아이디 입니다.");
+            throw new AlreadyExistUserException();
         }
 
         // 암호화해서 db에 저장

@@ -2,6 +2,7 @@ package org.example.stock.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.stock.error.impl.NoCompanyException;
 import org.example.stock.model.Company;
 import org.example.stock.model.Dividend;
 import org.example.stock.model.ScrapedResult;
@@ -30,7 +31,7 @@ public class FinanceService {
 
         // 1. 회사명을 기준으로 회사 정보를 조회
         CompanyEntity company = this.companyRepository.findByName(companyName)
-                                                .orElseThrow(() -> new RuntimeException("존재하지 않는 회사입니다."));
+                                                .orElseThrow(() -> new NoCompanyException());
 
         // 2. 조회된 회사 id로 배당금 조회
         List<DividendEntity> dividendEntities = this.dividendRepository.findAllByCompanyId(company.getId());
