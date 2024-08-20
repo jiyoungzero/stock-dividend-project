@@ -8,7 +8,7 @@
 ✅ 서비스에서 캐시 서버(Redis) 구성 <br>
 
 ### 기술스택
-Spring Boot, Java, JPA, H2, Redis, Jsoup, Docker
+Spring Boot, Java, JPA, H2, Redis, Jsoup
 
 
 ### 🚩 최종 구현 API 리스트
