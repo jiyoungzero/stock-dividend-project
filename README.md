@@ -32,12 +32,12 @@ Spring Boot, Java, JPA, H2, Redis, Jsoup
 
 **5) DELETE - company/{ticker}**
 - ticker 에 해당하는 회사 정보 삭제
-- 삭제시 회사의 배당금 정보와 캐시도 모두 삭제되어야 함
+- 삭제시 회사의 배당금 정보와 캐시도 모두 삭제
   
  **6) POST - auth/signup**
 - 회원가입 API 
-- 중복 ID 는 허용하지 않음
-- 패스워드는 암호화된 형태로 저장되어야함
+- 중복 ID 방지
+- 패스워드는 암호화된 형태로 저장
 
 **7) POST - auth/signin**
 - 로그인 API
